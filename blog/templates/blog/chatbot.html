@@ -1,35 +1,10 @@
 {% load staticfiles %}
-<html ng-app="chatApp">
+<!DOCTYPE html>
+<html lang="en" >
   <head>
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    <script type="text/javascript" src='{% static 'js/index.js' %}'></script>
   </head>
-  <body ng-controller="ChatCtrl">
-    <div class="chat">
-      <header id="chat-header">
-        <h2>Header</h2>
-        <a ng-click="truncate()">Truncate</a>
-      </header>
-      <main scroll-glue class="custom-scroll">
-        <section ng-repeat="message in messages" class="message">
-          <figure>
-            <img src="http://www.gravatar.com/avatar/%7Bmd5email%7D?s=50&d=mm" alt="mm" />
-          </figure>
-          <div class="speech">
-            <header>
-              <strong>Username</strong>
-              <time am-time-ago="{{message.created_at}}"></time>
-            </header>
-            <p ng-bind-html="message.body | linky:'_blank'"></p>
-          </div>
-        </section>
-      </main>
-      <footer>
-        <form ng-submit="addMessage(enteredMessage)">
-          <input type="text" ng-model="enteredMessage" placeholder="Type something..." required ng-trim="true">
-          <button type="submit">Send</button>
-        </form>
-      </footer>
-    </div>
-  </body>
+  <body>
+ </body>
 </html>
+
