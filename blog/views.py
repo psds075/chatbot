@@ -16,21 +16,21 @@ def chatbot(request):
         input_message = request.POST['q']
         me = User.objects.get(username = 'User')
         Post.objects.create(author=me, title='', text=input_message)
-
         chat_subject = chatlib.import_csv()
         (conversation,conversation_id,outputs,this_context) = chatlib.initialize_watson()
         (outputs, this_context) = chatlib.talk_watson(input_message,conversation,outputs,this_context)
         me = User.objects.get(username = '커리어클루')
         Post.objects.create(author=me, title='', text=outputs[0])
-
     else:
         Post.objects.all().delete()
         chat_subject = chatlib.import_csv()
         (conversation,conversation_id,outputs,this_context) = chatlib.initialize_watson()
         (outputs, this_context) = chatlib.talk_watson('안녕하세요',conversation,outputs,this_context)
-        me = User.objects.get(username = '커리어클루')
+        try:
+            me = User.objects.get(username = '커리어클루')
+        except User.DoesNotExist:
+            me = User.objects.create_user(username='커리어클루',email='career@careerclue.com',password='abcd2864')
         Post.objects.create(author=me, title='', text=outputs[0])
-
     posts = Post.objects.all()
     return render(request, 'blog/chatbot.html', {'posts':posts})
 

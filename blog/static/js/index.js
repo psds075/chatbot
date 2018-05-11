@@ -1,2 +1,1 @@
-alert('asdf');
 $('#test').focus();

@@ -7,11 +7,15 @@ Created on Sun Jan 28 17:42:55 2018
 import watson_developer_cloud
 import csv
 import re
+import os.path
+
 
 #CSV Data
 def import_csv():
+    BASE = os.path.dirname(os.path.abspath(__file__))
     chat_subject = []
-    f = open('blog/chatbot.csv', 'r', encoding='utf-8')
+    f = open(os.path.join(BASE, "chatbot.csv"), 'r', encoding='utf-8')
+    #f = open('blog/chatbot.csv', 'r', encoding='utf-8')
     rdr = csv.reader(f)
     for line in rdr:
         chat_subject.append(line[1])
