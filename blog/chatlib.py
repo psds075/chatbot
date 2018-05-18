@@ -48,11 +48,18 @@ def talk_watson(input_message,conversation,outputs,this_context):
     this_context = response['context']
     return (outputs, this_context)
 
+def listing_subject(chat_subject, listing_text):
+    result = []
+    conv_lists = re.findall('\d+', listing_text)
+    for conv_list in conv_lists:
+        result.append(chat_subject[int(conv_list)])
+    return result
     
 #두번째 대화
 def __main__():
     chat_subject = import_csv()
     (conversation,conversation_id,outputs,this_context) = initialize_watson()
+    
     print("출력 : ",end = "")
     print(outputs[0],end = "") #질문 출력
     
@@ -65,12 +72,12 @@ def __main__():
         (outputs, this_context) = talk_watson(input_message,conversation,outputs,this_context)
 
         if outputs[0][0]=='[': #List Up을 해주는 질문
-            print("<다음 질문 중 골라주세요>")
-            conv_lists = re.findall('\d+',outputs[0])
-            for conv_list in conv_lists:
-                print(chat_subject[int(conv_list)])
+            results = listing_subject(chat_subject, outputs[0])
+            for result in results:
+                print(result)
         else : # 일반적인 질문
             print("출력 : ",end = "")
             print(outputs[0]) #질문 출력
+
 
 #__main__()
